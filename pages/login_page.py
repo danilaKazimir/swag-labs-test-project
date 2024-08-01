@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
-from base.base_class import Base
+from base.base_page import BasePage
 
 
-class LoginPage(Base):
+class LoginPage(BasePage):
     # PAGE URL
     URL = 'https://www.saucedemo.com/'
 

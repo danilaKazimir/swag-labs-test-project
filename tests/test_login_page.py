@@ -6,7 +6,7 @@ from pages.inventory_page import InventoryPage
 
 class TestSuccessfulLogin:
     def test_successful_login_into_swag_labs(self, set_up):
-        browser = LoginPage(set_up, LoginPage.URL)
+        browser = LoginPage(set_up)
         browser.open_login_page()
         browser.fill_fields_and_click_on_login_button("standard_user", "secret_sauce")
         browser.assert_url(InventoryPage.URL)
