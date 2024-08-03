@@ -23,6 +23,13 @@ class BasePage:
         except TimeoutException:
             raise AssertionError(f"Element with locator '{locator}' isn't visible within {timeout} seconds")
 
+    def wait_for_element_is_not_visible(self, locator: tuple[str, str], timeout: int = 10) -> None:
+        """Method to wait until element becomes invisible"""
+        try:
+            WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element(locator))
+        except TimeoutException:
+            raise AssertionError(f"Element with locator '{locator}' still displayed after {timeout} seconds")
+
     def assert_url(self, expected_url: str):
         """Method to assert URL"""
         current_url = self.driver.current_url

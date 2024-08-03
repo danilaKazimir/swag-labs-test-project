@@ -30,7 +30,11 @@ class InventoryPage(BasePage):
     def click_on_shopping_cart_icon(self):
         self.get_shopping_cart_icon().click()
 
-    def click_on_product_add_to_card_button(self, product_name: str):
+    def check_product_add_to_card_or_remove_button_text(self, product_name: str, expected_text: str):
+        button_element = self.product_values.get_product_elements_from_page(product_name)["button"]
+        self.assert_element_text_value(button_element, expected_text)
+
+    def click_on_product_add_to_card_or_remove_button(self, product_name: str):
         button_element = self.product_values.get_product_elements_from_page(product_name)["button"]
         button_element.click()
 
@@ -59,5 +63,13 @@ class InventoryPage(BasePage):
         self.assert_url(f"https://www.saucedemo.com/inventory-item.html?id={product_id}")
 
     def add_product_to_shopping_cart(self, product_name: str, expected_cart_badge_count: str):
-        self.click_on_product_add_to_card_button(product_name)
+        self.check_product_add_to_card_or_remove_button_text(product_name, "Add to cart")
+        self.click_on_product_add_to_card_or_remove_button(product_name)
+        self.check_product_add_to_card_or_remove_button_text(product_name, "Remove")
         self.assert_element_text_value(self.get_shopping_cart_badge(), expected_cart_badge_count)
+
+    def remove_product_from_shopping_cart(self, product_name: str):
+        self.check_product_add_to_card_or_remove_button_text(product_name, "Remove")
+        self.click_on_product_add_to_card_or_remove_button(product_name)
+        self.check_product_add_to_card_or_remove_button_text(product_name, "Add to cart")
+        self.wait_for_element_is_not_visible(self.SHOPPING_CART_BADGE)

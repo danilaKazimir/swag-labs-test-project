@@ -90,7 +90,7 @@ class TestProducts:
         ip = InventoryPage(driver)
         ip.open_product_page(product)
 
-    def test_add_product_to_card(self, set_up, product):
+    def test_add_single_product_to_cart(self, set_up, product):
         driver = set_up
 
         lp = LoginPage(driver)
@@ -100,3 +100,15 @@ class TestProducts:
 
         ip = InventoryPage(driver)
         ip.add_product_to_shopping_cart(product, "1")
+
+    def test_remove_single_product_from_cart(self, set_up, product):
+        driver = set_up
+
+        lp = LoginPage(driver)
+        lp.open_login_page()
+        lp.fill_fields_and_click_on_login_button("standard_user", "secret_sauce")
+        lp.assert_url(InventoryPage.URL)
+
+        ip = InventoryPage(driver)
+        ip.add_product_to_shopping_cart(product, "1")
+        ip.remove_product_from_shopping_cart(product)
