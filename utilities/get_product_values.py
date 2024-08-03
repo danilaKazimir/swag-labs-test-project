@@ -1,18 +1,3 @@
-# import json
-#
-#
-# # Функция для загрузки данных из файла JSON
-# def load_json_file(file_path):
-#     """Загружает JSON-данные из указанного файла и возвращает их как словарь Python."""
-#     with open(file_path, 'r', encoding='utf-8') as file:
-#         data = json.load(file)
-#     return data
-#
-#
-# file_path = 'data/swag_labs_products.json'
-#
-# products = load_json_file(file_path)
-#
 import json
 
 from selenium.webdriver.common.by import By
@@ -21,6 +6,11 @@ from base.base_page import BasePage
 
 class ProductValues(BasePage):
     FILE_PATH = "data/swag_labs_products.json"
+
+    def get_all_products_info_from_json(self):
+        with open(self.FILE_PATH, 'r', encoding='utf-8') as file:
+            products_data = json.load(file)
+        return products_data
 
     def get_product_info_from_json(self, product_name):
         with open(self.FILE_PATH, 'r', encoding='utf-8') as file:
