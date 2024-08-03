@@ -43,6 +43,11 @@ class BasePage:
             f"Incorrect element text value, expected value - {expected_value}, "
             f"but is - {actual_value.text}")
 
+    def assert_element_attribute_value(self, attribute: str, actual_value: WebElement, expected_value: str):
+        assert actual_value.get_attribute(attribute) == expected_value, (
+            f"Incorrect element attribute value, expected attribute value - {expected_value}, "
+            f"but is - {actual_value.get_attribute(attribute)}")
+
     # Burger menu locators and methods
     # URL
     SAUCE_LABS_URL = "https://saucelabs.com/"
