@@ -67,7 +67,7 @@ class TestFooterLinks:
 @pytest.mark.parametrize("product", ("Sauce Labs Backpack", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt",
                                      "Sauce Labs Fleece Jacket", "Sauce Labs Onesie",
                                      "Test.allTheThings() T-Shirt (Red)"))
-class TestProducts:
+class TestSingleProduct:
     def test_check_product_values(self, set_up, product):
         driver = set_up
 
@@ -112,3 +112,17 @@ class TestProducts:
         ip = InventoryPage(driver)
         ip.add_product_to_shopping_cart(product, "1")
         ip.remove_product_from_shopping_cart(product)
+
+
+@pytest.mark.parametrize("count", (2, 3, 4, 5, 6))
+class TestMultipleProducts:
+    def test_add_multiple_product_to_cart(self, set_up, count):
+        driver = set_up
+
+        lp = LoginPage(driver)
+        lp.open_login_page()
+        lp.fill_fields_and_click_on_login_button("standard_user", "secret_sauce")
+        lp.assert_url(InventoryPage.URL)
+
+        ip = InventoryPage(driver)
+        ip.add_multiple_products_to_shopping_cart(count)

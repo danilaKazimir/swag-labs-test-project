@@ -68,6 +68,12 @@ class InventoryPage(BasePage):
         self.check_product_add_to_card_or_remove_button_text(product_name, "Remove")
         self.assert_element_text_value(self.get_shopping_cart_badge(), expected_cart_badge_count)
 
+    def add_multiple_products_to_shopping_cart(self, count_of_product_to_add):
+        products_names = self.product_values.get_all_products_info_from_json()
+        for i in range(0, count_of_product_to_add):
+            product_name = tuple(products_names.items())[i][1]["name"]
+            self.add_product_to_shopping_cart(product_name, str(i + 1))
+
     def remove_product_from_shopping_cart(self, product_name: str):
         self.check_product_add_to_card_or_remove_button_text(product_name, "Remove")
         self.click_on_product_add_to_card_or_remove_button(product_name)
