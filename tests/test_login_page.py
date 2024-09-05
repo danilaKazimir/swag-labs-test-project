@@ -31,7 +31,7 @@ class TestsUnsuccessfulLogin:
 
     @pytest.mark.parametrize('username, password', INVALID_LOGIN_DATA)
     def test_error_message_during_login(self, set_up, username, password):
-        browser = LoginPage(set_up, LoginPage.URL)
+        browser = LoginPage(set_up)
         browser.open_login_page()
         browser.fill_fields_and_click_on_login_button(username, password)
         if username == "":
